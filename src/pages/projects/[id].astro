@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GrainDivider from '../../components/GrainDivider.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, summary, date, category, status, tools, technologies, github, paper, presentation, download, lessonsLearned, futureImprovements } = entry.data;
+const statusClass = status.toLowerCase().replace(' ', '-');
+---
+
+<BaseLayout title={title} description={summary}>
+  <article class="wrap prose">
+    <a href="../" class="mono muted back-link">← All projects</a>
+    <div class="eyebrow">
+      <span class:list={['status-dot', statusClass]}></span>{status} · {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+    </div>
+    <h1>{title}</h1>
+    <div class="tags">
+      {category.map((c) => <span class="tag">{c}</span>)}
+    </div>
+
+    <div class="content-body">
+      <Content />
+    </div>
+
+    {(tools.length > 0 || technologies.length > 0) && (
+      <div class="card meta-card">
+        {tools.length > 0 && (
+          <div>
+            <div class="eyebrow">Tools</div>
+            <div class="tags">{tools.map((t) => <span class="tag tag-outline">{t}</span>)}</div>
+          </div>
+        )}
+        {technologies.length > 0 && (
+          <div style="margin-top:var(--space-2);">
+            <div class="eyebrow">Technologies / methods</div>
+            <div class="tags">{technologies.map((t) => <span class="tag tag-outline">{t}</span>)}</div>
+          </div>
+        )}
+      </div>
+    )}
+
+    {(github || paper || presentation || download) && (
+      <div class="links-row">
+        {github && <a class="btn" href={github} target="_blank" rel="noopener noreferrer">GitHub</a>}
+        {paper && <a class="btn" href={paper} target="_blank" rel="noopener noreferrer">Paper</a>}
+        {presentation && <a class="btn" href={presentation} target="_blank" rel="noopener noreferrer">Presentation</a>}
+        {download && <a class="btn" href={download} target="_blank" rel="noopener noreferrer">Download</a>}
+      </div>
+    )}
+
+    {lessonsLearned && (
+      <>
+        <GrainDivider />
+        <h2>Lessons learned</h2>
+        <p>{lessonsLearned}</p>
+      </>
+    )}
+    {futureImprovements && (
+      <>
+        <h2>Future improvements</h2>
+        <p>{futureImprovements}</p>
+      </>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .back-link { display: inline-block; margin-bottom: var(--space-2); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: var(--space-2) 0; }
+  .content-body { margin-block: var(--space-4); }
+  .meta-card { margin-block: var(--space-4); }
+  .links-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+</style>

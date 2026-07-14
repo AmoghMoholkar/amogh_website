@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, date, category, tags, excerpt } = entry.data;
+---
+
+<BaseLayout title={title} description={excerpt}>
+  <article class="wrap prose">
+    <a href="../" class="mono muted back-link">← All notes</a>
+    <div class="eyebrow">
+      {category} · <time datetime={date.toISOString()}>{date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+    </div>
+    <h1>{title}</h1>
+    <div class="tags">
+      {tags.map((t) => <span class="tag tag-outline">#{t}</span>)}
+    </div>
+    <div class="content-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .back-link { display: inline-block; margin-bottom: var(--space-2); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: var(--space-2) 0; }
+  .content-body { margin-top: var(--space-4); }
+  .content-body :global(pre) {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    padding: var(--space-2);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+  .content-body :global(code) { font-family: var(--font-mono); font-size: 0.9em; }
+  .content-body :global(table) { width: 100%; border-collapse: collapse; margin-block: var(--space-3); }
+  .content-body :global(th), .content-body :global(td) {
+    border: 1px solid var(--line);
+    padding: 0.5em 0.7em;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+  .content-body :global(blockquote) {
+    border-left: 2px solid var(--patina);
+    margin: var(--space-3) 0;
+    padding-left: var(--space-2);
+    color: var(--ink-soft);
+  }
+</style>

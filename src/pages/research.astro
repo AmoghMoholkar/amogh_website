@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GrainDivider from '../components/GrainDivider.astro';
+import ResearchCard from '../components/ResearchCard.astro';
+
+const research = (await getCollection('research')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Research" description="Publications, presentations, laboratory experience, and reading list.">
+  <section class="wrap">
+    <div class="eyebrow">Research</div>
+    <h1>Publications &amp; ongoing work</h1>
+    <p class="prose">
+      Centered on physical metallurgy, failure analysis, and materials characterization — currently a
+      full factorial study on FDM-printed PETG vs. PETG-CF composites.
+    </p>
+  </section>
+
+  <section class="wrap">
+    {research.length > 0 ? (
+      research.map((r) => (
+        <ResearchCard
+          title={r.data.title}
+          type={r.data.type}
+          status={r.data.status}
+          date={r.data.date}
+          authors={r.data.authors}
+          venue={r.data.venue}
+          abstract={r.data.abstract}
+          pdf={r.data.pdf}
+          doi={r.data.doi}
+          citation={r.data.citation}
+          tags={r.data.tags}
+        />
+      ))
+    ) : (
+      <p class="muted">No publications yet — add a Markdown file to src/content/research/.</p>
+    )}
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <section class="wrap">
+    <div class="grid grid-2">
+      <div class="reveal">
+        <h2>Laboratory experience</h2>
+        <div class="tags" style="margin-top:var(--space-2);">
+          <span class="tag">SEM &amp; Fractography</span>
+          <span class="tag">Digital Image Correlation (DIC)</span>
+          <span class="tag">ASTM Mechanical Testing</span>
+          <span class="tag">Metallography</span>
+          <span class="tag">Investment Casting</span>
+          <span class="tag">Phase-Field Simulation (ParaView)</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Future research ideas</h2>
+        <p>
+          Extending the current DOE to additional reinforcement types (glass fiber, different chopped
+          fiber lengths), and correlating local DIC strain concentration quantitatively with SEM fracture
+          surface features rather than treating them as two separate analyses.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Reading list</h2>
+    <p class="muted">[Add papers, books, or reviews you're currently working through here.]</p>
+  </section>
+</BaseLayout>

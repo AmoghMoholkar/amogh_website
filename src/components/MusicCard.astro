@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  type: string;
+  date: Date;
+  youtubeId?: string;
+  platform?: string;
+  duration?: string;
+  description?: string;
+}
+const { title, type, date, youtubeId, platform, duration, description } = Astro.props;
+---
+
+<article class="card music-card">
+  {youtubeId && (
+    <div class="video-embed">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  )}
+  <div class="meta">
+    <span class="eyebrow" style="margin:0;">{type}</span>
+    <span class="mono muted">{date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</span>
+    {platform && <span class="mono muted">· {platform}</span>}
+    {duration && <span class="mono muted">· {duration}</span>}
+  </div>
+  <h3>{title}</h3>
+  {description && <p>{description}</p>}
+</article>
+
+<style>
+  .music-card { padding: 0; overflow: hidden; }
+  .video-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--bg-elevated-2); }
+  .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; font-size: 0.78rem; padding: var(--space-3) var(--space-3) 0; }
+  h3 { padding: 0 var(--space-3); margin-top: 0.4rem; }
+  p { padding: 0 var(--space-3) var(--space-3); margin: 0; }
+</style>

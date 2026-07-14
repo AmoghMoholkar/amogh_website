@@ -1,0 +1,18 @@
+{
+  "name": "Amogh",
+  "fullName": "Amogh [Last Name]",
+  "role": "Metallurgical & Materials Engineer · Guitarist",
+  "tagline": "I study why materials fail, and how to make them better — on the bench and on the fretboard.",
+  "location": "India",
+  "email": "you@example.com",
+  "social": {
+    "github": "https://github.com/yourusername",
+    "linkedin": "https://linkedin.com/in/yourusername",
+    "youtube": "https://youtube.com/@yourusername",
+    "instagram": "https://instagram.com/yourusername"
+  },
+  "intro": {
+    "short": "Recent Metallurgical & Materials Engineering graduate from VNIT Nagpur, focused on physical metallurgy, failure analysis, and materials characterization — with additive manufacturing and alloy development as running threads through most of my work.",
+    "long": "I'm a Metallurgical & Materials Engineering graduate from VNIT Nagpur. My work sits at the intersection of physical metallurgy, failure analysis, and materials characterization — I like problems where a microstructure has to explain a macro-scale failure, whether that's a fracture surface under SEM or a stress-strain curve that doesn't behave the way theory says it should. Outside the lab, I play guitar — acoustic and electric, mostly chasing tone and recording covers and collaborations rather than technical shredding."
+  }
+}

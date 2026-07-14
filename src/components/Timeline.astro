@@ -1,0 +1,20 @@
+---
+interface Item {
+  year: string;
+  title: string;
+  description: string;
+  category: string;
+}
+interface Props { items: Item[]; }
+const { items } = Astro.props;
+---
+
+<div class="timeline">
+  {items.map((item) => (
+    <div class="timeline-item reveal">
+      <div class="timeline-year mono">{item.year} <span class="tag tag-outline" style="margin-left:0.5rem;">{item.category}</span></div>
+      <h4 style="margin-top:0.3rem;">{item.title}</h4>
+      <p style="margin:0;">{item.description}</p>
+    </div>
+  ))}
+</div>

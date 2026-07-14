@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const base = import.meta.env.BASE_URL;
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const allCategories = [...new Set(projects.flatMap((p) => p.data.category))].sort();
+---
+
+<BaseLayout title="Projects" description="Research, engineering, and manufacturing projects.">
+  <section class="wrap">
+    <div class="eyebrow">Projects</div>
+    <h1>Things I've built and studied</h1>
+    <p class="prose">
+      Filter by category, or read through everything. New projects get added as Markdown files —
+      nothing here needs a redesign to grow.
+    </p>
+
+    <div class="filters" role="group" aria-label="Filter projects by category">
+      <button class="filter-btn active" data-filter="all">All</button>
+      {allCategories.map((cat) => (
+        <button class="filter-btn" data-filter={cat}>{cat}</button>
+      ))}
+    </div>
+
+    <div class="grid grid-auto" id="project-grid">
+      {projects.map((p) => (
+        <div class="project-item reveal" data-categories={p.data.category.join('|')}>
+          <ProjectCard
+            href={`${base}projects/${p.id}/`}
+            title={p.data.title}
+            summary={p.data.summary}
+            date={p.data.date}
+            category={p.data.category}
+            status={p.data.status}
+          />
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: var(--space-3) 0 var(--space-4); }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.4em 0.8em;
+    border-radius: 2px;
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+  }
+  .filter-btn:hover { border-color: var(--patina); }
+  .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      items.forEach((item) => {
+        const cats = item.dataset.categories?.split('|') ?? [];
+        const show = filter === 'all' || cats.includes(filter ?? '');
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>

@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const base = import.meta.env.BASE_URL;
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const categories = [...new Set(posts.map((p) => p.data.category))];
+---
+
+<BaseLayout title="Blog" description="Notes on metallurgy, materials science, research, music, and learning.">
+  <section class="wrap">
+    <div class="eyebrow">Blog / Notes</div>
+    <h1>Field notes</h1>
+    <p class="prose">Metallurgy, materials science, research process, music, and whatever else is on my mind.</p>
+
+    <div class="controls">
+      <input id="search-input" type="search" placeholder="Search posts…" aria-label="Search posts" />
+      <div class="filters" role="group" aria-label="Filter by category">
+        <button class="filter-btn active" data-filter="all">All</button>
+        {categories.map((c) => <button class="filter-btn" data-filter={c}>{c}</button>)}
+      </div>
+    </div>
+
+    <div class="grid grid-2" id="post-grid">
+      {posts.map((p) => (
+        <div
+          class="post-item reveal"
+          data-category={p.data.category}
+          data-search={`${p.data.title} ${p.data.excerpt} ${p.data.tags.join(' ')}`.toLowerCase()}
+        >
+          <BlogCard
+            href={`${base}blog/${p.id}/`}
+            title={p.data.title}
+            date={p.data.date}
+            category={p.data.category}
+            excerpt={p.data.excerpt}
+            tags={p.data.tags}
+          />
+        </div>
+      ))}
+    </div>
+    <p id="no-results" class="muted" hidden>No posts match that search.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .controls { margin: var(--space-3) 0 var(--space-4); }
+  #search-input { max-width: 360px; margin-bottom: var(--space-2); }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.4em 0.8em;
+    border-radius: 2px;
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+</style>
+
+<script>
+  const search = document.getElementById('search-input') as HTMLInputElement | null;
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.post-item');
+  const noResults = document.getElementById('no-results');
+
+  let activeCategory = 'all';
+
+  function applyFilters() {
+    const query = (search?.value ?? '').trim().toLowerCase();
+    let visibleCount = 0;
+    items.forEach((item) => {
+      const matchesCategory = activeCategory === 'all' || item.dataset.category === activeCategory;
+      const matchesSearch = !query || item.dataset.search?.includes(query);
+      const show = matchesCategory && matchesSearch;
+      item.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+    if (noResults) noResults.hidden = visibleCount !== 0;
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.dataset.filter ?? 'all';
+      applyFilters();
+    });
+  });
+
+  search?.addEventListener('input', applyFilters);
+</script>

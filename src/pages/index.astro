@@ -1,0 +1,159 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GrainDivider from '../components/GrainDivider.astro';
+import AvatarPlaceholder from '../components/AvatarPlaceholder.astro';
+import HeroCurve from '../components/HeroCurve.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import MusicCard from '../components/MusicCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+import site from '../data/site.json';
+import timelineData from '../data/timeline.json';
+
+const base = import.meta.env.BASE_URL;
+
+const projects = await getCollection('projects');
+const featuredProject =
+  projects.find((p) => p.data.featured) ??
+  projects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
+
+const music = await getCollection('music');
+const latestMusic =
+  music.find((m) => m.data.featured) ??
+  music.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
+
+const blogPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latestPost = blogPosts[0];
+
+const recentTimeline = timelineData.slice(-4).reverse();
+---
+
+<BaseLayout title="Home">
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div class="reveal is-visible">
+        <div class="eyebrow">{site.role}</div>
+        <h1>Hi, I'm {site.name}.</h1>
+        <p class="prose" style="font-size:1.1rem;">{site.intro.short}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={`${base}projects/`}>View projects</a>
+          <a class="btn" href={`${base}music/`}>Music</a>
+          <a class="btn" href={`${base}resume/`}>Resume</a>
+          <a class="btn" href={`${base}contact/`}>Contact</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal is-visible">
+        <AvatarPlaceholder />
+        <div class="hero-curve-wrap">
+          <HeroCurve />
+          <p class="mono muted curve-caption">stress vs. strain / pluck vs. decay — pick your reading</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <!-- FEATURED PROJECT + LATEST MUSIC -->
+  <section class="wrap">
+    <div class="grid grid-2">
+      {featuredProject && (
+        <div class="reveal">
+          <div class="eyebrow">Featured project</div>
+          <ProjectCard
+            href={`${base}projects/${featuredProject.id}/`}
+            title={featuredProject.data.title}
+            summary={featuredProject.data.summary}
+            date={featuredProject.data.date}
+            category={featuredProject.data.category}
+            status={featuredProject.data.status}
+          />
+        </div>
+      )}
+      {latestMusic && (
+        <div class="reveal">
+          <div class="eyebrow">Latest from the music side</div>
+          <MusicCard
+            title={latestMusic.data.title}
+            type={latestMusic.data.type}
+            date={latestMusic.data.date}
+            youtubeId={latestMusic.data.youtubeId}
+            platform={latestMusic.data.platform}
+            duration={latestMusic.data.duration}
+            description={latestMusic.data.description}
+          />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <!-- LATEST NOTE + RECENT ACHIEVEMENT -->
+  <section class="wrap">
+    <div class="grid grid-2">
+      {latestPost && (
+        <div class="reveal">
+          <div class="eyebrow">Latest note</div>
+          <BlogCard
+            href={`${base}blog/${latestPost.id}/`}
+            title={latestPost.data.title}
+            date={latestPost.data.date}
+            category={latestPost.data.category}
+            excerpt={latestPost.data.excerpt}
+            tags={latestPost.data.tags}
+          />
+        </div>
+      )}
+      <div class="reveal">
+        <div class="eyebrow">Recent achievement</div>
+        <div class="card">
+          <p class="muted" style="margin:0;">
+            [Add your most recent award, publication milestone, or competition result here — edit
+            <span class="mono">src/data/resume.json</span> → <span class="mono">achievements</span>.]
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <!-- TIMELINE PREVIEW -->
+  <section class="wrap">
+    <div class="eyebrow">Recent milestones</div>
+    <h2>Where things stand</h2>
+    <div class="timeline">
+      {recentTimeline.map((item) => (
+        <div class="timeline-item reveal">
+          <div class="timeline-year mono">{item.year} <span class="tag tag-outline" style="margin-left:0.5rem;">{item.category}</span></div>
+          <h4 style="margin-top:0.3rem;">{item.title}</h4>
+          <p style="margin:0;">{item.description}</p>
+        </div>
+      ))}
+    </div>
+    <p><a class="btn btn-sm" href={`${base}about/`}>See the full timeline →</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding-top: var(--space-5); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: var(--space-3); }
+  .hero-visual { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); }
+  .hero-curve-wrap { width: 100%; }
+  .curve-caption { text-align: center; font-size: 0.72rem; margin-top: 0.4rem; }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-visual { order: -1; }
+  }
+</style>

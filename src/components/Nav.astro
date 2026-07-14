@@ -1,0 +1,169 @@
+---
+import { NAV_ITEMS } from '../utils/nav.js';
+import site from '../data/site.json';
+
+const base = import.meta.env.BASE_URL;
+const currentPath = Astro.url.pathname;
+---
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href={base} class="brand" aria-label={`${site.name} — home`}>
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <polygon
+          points="11,1 20,6.5 20,15.5 11,21 2,15.5 2,6.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        />
+        <line x1="11" y1="1" x2="11" y2="21" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+        <line x1="2" y1="6.5" x2="20" y2="15.5" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+        <line x1="20" y1="6.5" x2="2" y2="15.5" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+      </svg>
+      <span class="brand-name">{site.name}</span>
+    </a>
+
+    <nav class="links" aria-label="Primary">
+      {NAV_ITEMS.map((item) => {
+        const href = `${base}${item.path}`;
+        const isActive =
+          item.path === '' ? currentPath === base : currentPath.startsWith(href);
+        return (
+          <a href={href} class:list={['nav-link', { active: isActive }]}>
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+
+    <div class="nav-actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle color theme" type="button">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="4.5" />
+          <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" />
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z" />
+        </svg>
+      </button>
+      <button id="menu-toggle" class="icon-btn menu-btn" aria-label="Toggle menu" aria-expanded="false" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-links" class="mobile-links" aria-label="Primary mobile">
+    {NAV_ITEMS.map((item) => (
+      <a href={`${base}${item.path}`} class="nav-link">{item.label}</a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 0.9rem;
+    gap: 1.5rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  .links {
+    display: flex;
+    gap: 1.6rem;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-link {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    position: relative;
+    padding-block: 0.3rem;
+    transition: color var(--transition);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -1px;
+    height: 1px;
+    background: var(--patina);
+    transition: right var(--transition);
+  }
+  .nav-link:hover, .nav-link.active { color: var(--ink); }
+  .nav-link:hover::after, .nav-link.active::after { right: 0; }
+
+  .nav-actions { display: flex; align-items: center; gap: 0.4rem; }
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+  }
+  .icon-btn:hover { background: var(--bg-elevated); color: var(--ink); }
+  .icon-btn:focus-visible { outline: 2px solid var(--patina); outline-offset: 2px; }
+
+  .icon-moon { display: none; }
+  :global([data-theme='dark']) .icon-sun { display: none; }
+  :global([data-theme='dark']) .icon-moon { display: block; }
+
+  .menu-btn { display: none; }
+  .mobile-links {
+    display: none;
+    flex-direction: column;
+    padding: 0.5rem var(--space-3) 1.2rem;
+    gap: 0.9rem;
+  }
+  .mobile-links .nav-link { font-size: 1rem; }
+
+  @media (max-width: 860px) {
+    .links { display: none; }
+    .menu-btn { display: inline-flex; }
+    .mobile-links.open { display: flex; }
+  }
+</style>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileLinks = document.getElementById('mobile-links');
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = mobileLinks?.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+</script>

@@ -1,0 +1,32 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  summary: string;
+  date: Date;
+  category: string[];
+  status: 'Completed' | 'In Progress' | 'Planned';
+}
+const { href, title, summary, date, category, status } = Astro.props;
+const statusClass = status.toLowerCase().replace(' ', '-');
+---
+
+<a href={href} class="project-card card">
+  <div class="meta">
+    <span class:list={['status-dot', statusClass]}></span>
+    <span class="mono muted">{status}</span>
+    <span class="mono muted"> · {date.getFullYear()}</span>
+  </div>
+  <h3>{title}</h3>
+  <p>{summary}</p>
+  <div class="tags">
+    {category.map((c) => <span class="tag tag-outline">{c}</span>)}
+  </div>
+</a>
+
+<style>
+  .project-card { display: block; height: 100%; }
+  .meta { display: flex; align-items: center; font-size: 0.78rem; margin-bottom: 0.6rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--space-2); }
+  h3 { margin-bottom: 0.4rem; }
+</style>

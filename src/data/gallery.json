@@ -1,0 +1,22 @@
+[
+  { "category": "Projects", "items": [
+    { "caption": "Investment casting — wax pattern before shell dip", "src": "" },
+    { "caption": "Post-cast part, as-cast finish", "src": "" }
+  ]},
+  { "category": "Research", "items": [
+    { "caption": "DIC speckle pattern under load", "src": "" },
+    { "caption": "SEM fractograph, PETG-CF specimen", "src": "" }
+  ]},
+  { "category": "College", "items": [
+    { "caption": "VNIT Nagpur campus", "src": "" }
+  ]},
+  { "category": "Music", "items": [
+    { "caption": "Home recording setup", "src": "" }
+  ]},
+  { "category": "Travel", "items": [
+    { "caption": "[Add a travel photo]", "src": "" }
+  ]},
+  { "category": "Events", "items": [
+    { "caption": "[Add an event photo]", "src": "" }
+  ]}
+]

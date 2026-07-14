@@ -1,0 +1,28 @@
+---
+interface SkillItem { name: string; level: number; }
+interface Group { category: string; items: SkillItem[]; }
+interface Props { groups: Group[]; }
+const { groups } = Astro.props;
+---
+
+<div class="skill-groups">
+  {groups.map((g) => (
+    <div class="skill-group">
+      <h4>{g.category}</h4>
+      {g.items.map((item) => (
+        <div class="skill-row">
+          <span class="label">{item.name}</span>
+          <div class="skill-track">
+            <div class="skill-fill" style={`width:${item.level}%`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  ))}
+</div>
+
+<style>
+  .skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 720px) { .skill-groups { grid-template-columns: 1fr; } }
+  .skill-group h4 { color: var(--patina); margin-bottom: var(--space-2); }
+</style>

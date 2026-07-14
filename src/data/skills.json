@@ -1,0 +1,32 @@
+[
+  { "category": "Metallurgy & Materials", "items": [
+    { "name": "Physical Metallurgy", "level": 85 },
+    { "name": "Failure Analysis", "level": 80 },
+    { "name": "Alloy Development", "level": 70 },
+    { "name": "Investment Casting", "level": 80 },
+    { "name": "Additive Manufacturing (FDM)", "level": 85 }
+  ]},
+  { "category": "Characterization & Testing", "items": [
+    { "name": "SEM & Fractography", "level": 80 },
+    { "name": "Mechanical Testing (ASTM)", "level": 80 },
+    { "name": "Digital Image Correlation (DIC)", "level": 85 },
+    { "name": "Fracture Mechanics", "level": 70 }
+  ]},
+  { "category": "Computation & Software", "items": [
+    { "name": "Python (data analysis / fitting)", "level": 80 },
+    { "name": "ParaView (phase-field visualization)", "level": 65 },
+    { "name": "CAD", "level": 60 },
+    { "name": "Statistical Analysis / DOE", "level": 70 }
+  ]},
+  { "category": "Music", "items": [
+    { "name": "Acoustic Guitar", "level": 85 },
+    { "name": "Electric Guitar", "level": 80 },
+    { "name": "Recording & Tone Design", "level": 70 },
+    { "name": "Collaboration / Session Playing", "level": 75 }
+  ]},
+  { "category": "Other", "items": [
+    { "name": "Technical Writing", "level": 75 },
+    { "name": "Research Design", "level": 75 },
+    { "name": "Public Speaking", "level": 60 }
+  ]}
+]

@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  type: string;
+  status: string;
+  date: Date;
+  authors: string;
+  venue?: string;
+  abstract: string;
+  pdf?: string;
+  doi?: string;
+  citation?: string;
+  tags: string[];
+}
+const { title, type, status, date, authors, venue, abstract, pdf, doi, citation, tags } = Astro.props;
+---
+
+<article class="card research-card">
+  <div class="eyebrow">{type} · {status}</div>
+  <h3>{title}</h3>
+  <p class="mono muted authors">{authors}{venue ? ` — ${venue}` : ''} · {date.getFullYear()}</p>
+  <p>{abstract}</p>
+  <div class="tags">
+    {tags.map((t) => <span class="tag">{t}</span>)}
+  </div>
+  <div class="links">
+    {pdf && <a class="btn btn-sm" href={pdf} target="_blank" rel="noopener noreferrer">PDF</a>}
+    {doi && <a class="btn btn-sm" href={`https://doi.org/${doi}`} target="_blank" rel="noopener noreferrer">DOI</a>}
+    {citation && <span class="mono muted citation">{citation}</span>}
+  </div>
+</article>
+
+<style>
+  .research-card { margin-bottom: var(--space-3); }
+  .authors { font-size: 0.85rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: var(--space-2) 0; }
+  .links { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin-top: var(--space-1); }
+  .citation { font-size: 0.78rem; }
+</style>

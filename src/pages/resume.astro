@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GrainDivider from '../components/GrainDivider.astro';
+import site from '../data/site.json';
+import resume from '../data/resume.json';
+
+const base = import.meta.env.BASE_URL;
+const projects = (await getCollection('projects')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const research = (await getCollection('research')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Resume" description="Professional summary, education, projects, and technical skills.">
+  <section class="wrap">
+    <div class="resume-header">
+      <div>
+        <div class="eyebrow">Resume</div>
+        <h1>{site.fullName}</h1>
+        <p class="muted" style="margin:0;">{site.role} · {site.location} · <a href={`mailto:${site.email}`} style="color:var(--patina);">{site.email}</a></p>
+      </div>
+      <a class="btn btn-primary" href={`${base}resume.pdf`} download>Download PDF</a>
+    </div>
+    <p class="prose" style="margin-top:var(--space-3);">{resume.summary}</p>
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <section class="wrap">
+    <h2>Education</h2>
+    {resume.education.map((ed) => (
+      <div class="card" style="margin-bottom:var(--space-2);">
+        <h3 style="margin-bottom:0.2rem;">{ed.degree}</h3>
+        <p style="margin:0;">{ed.institution}</p>
+        <p class="mono muted" style="margin:0.3rem 0 0;">{ed.years}</p>
+        {ed.details && <p class="muted" style="margin-top:0.3rem;">{ed.details}</p>}
+      </div>
+    ))}
+  </section>
+
+  <section class="wrap">
+    <h2>Selected projects</h2>
+    <div class="stack">
+      {projects.slice(0, 4).map((p) => (
+        <div>
+          <h3 style="margin-bottom:0.2rem;">{p.data.title}</h3>
+          <p class="mono muted" style="margin:0 0 0.3rem;">{p.data.status} · {p.data.date.getFullYear()}</p>
+          <p style="margin:0;">{p.data.summary}</p>
+        </div>
+      ))}
+    </div>
+    <p style="margin-top:var(--space-2);"><a class="btn btn-sm" href={`${base}projects/`}>See all projects →</a></p>
+  </section>
+
+  {research.length > 0 && (
+    <section class="wrap">
+      <h2>Publications</h2>
+      <div class="stack">
+        {research.map((r) => (
+          <div>
+            <h3 style="margin-bottom:0.2rem;">{r.data.title}</h3>
+            <p class="mono muted" style="margin:0;">{r.data.type} · {r.data.status} · {r.data.date.getFullYear()}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <section class="wrap">
+    <h2>Technical skills</h2>
+    <div class="grid grid-3">
+      {resume.technicalSkillGroups.map((g) => (
+        <div>
+          <div class="eyebrow">{g.group}</div>
+          <ul style="margin:0; padding-left:1.1rem; color:var(--ink-soft);">
+            {g.items.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="grid grid-3">
+      <div>
+        <h2>Leadership</h2>
+        <ul style="padding-left:1.1rem; color:var(--ink-soft);">
+          {resume.leadership.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Achievements</h2>
+        <ul style="padding-left:1.1rem; color:var(--ink-soft);">
+          {resume.achievements.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Certifications</h2>
+        <ul style="padding-left:1.1rem; color:var(--ink-soft);">
+          {resume.certifications.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+</style>

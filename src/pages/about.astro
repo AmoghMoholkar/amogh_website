@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GrainDivider from '../components/GrainDivider.astro';
+import Timeline from '../components/Timeline.astro';
+import SkillBars from '../components/SkillBars.astro';
+import site from '../data/site.json';
+import timelineData from '../data/timeline.json';
+import skillsData from '../data/skills.json';
+---
+
+<BaseLayout title="About" description="Education, interests, music journey, skills, and philosophy.">
+  <section class="wrap">
+    <div class="eyebrow">About</div>
+    <h1>Who I am</h1>
+    <p class="prose" style="font-size:1.1rem;">{site.intro.long}</p>
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <section class="wrap">
+    <div class="grid grid-2">
+      <div class="reveal">
+        <h2>Education</h2>
+        <div class="card">
+          <div class="eyebrow">B.Tech, Metallurgical &amp; Materials Engineering</div>
+          <p style="margin:0;">Visvesvaraya National Institute of Technology (VNIT), Nagpur</p>
+          <p class="mono muted" style="margin-top:0.3rem;">[Add years attended and any honors here]</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>Engineering interests</h2>
+        <p>
+          Physical metallurgy, failure analysis, materials characterization (SEM, fractography), additive
+          manufacturing, investment casting, and alloy development. I'm most drawn to problems where a
+          microstructure has to explain a macro-scale outcome — a fracture surface, a stress-strain curve
+          that doesn't behave the way theory predicts, a casting defect traced back to a processing step.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="grid grid-2">
+      <div class="reveal">
+        <h2>Research interests</h2>
+        <p>
+          Currently deep in a full factorial study on FDM-printed PETG vs. PETG-CF composites, using
+          digital image correlation (DIC) and SEM fractography to ask a mechanistic question: does carbon
+          fiber change <em>how</em> the material deforms and fails, not just the numbers it produces on a
+          datasheet.
+        </p>
+      </div>
+      <div class="reveal">
+        <h2>Music journey</h2>
+        <p>
+          I play acoustic and electric guitar — recording covers, chasing tone, and collaborating with
+          singers rather than practicing to shred. Tasteful playing over technical density, always.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <section class="wrap">
+    <div class="eyebrow">Skills</div>
+    <h2>What I actually work with</h2>
+    <SkillBars groups={skillsData} />
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <section class="wrap">
+    <div class="grid grid-2">
+      <div class="reveal">
+        <h2>Philosophy</h2>
+        <p>
+          [Add a paragraph here on how you approach problems — e.g. your take on rigor vs. intuition,
+          first-principles thinking, or what "good work" looks like to you in the lab and on stage.]
+        </p>
+      </div>
+      <div class="reveal">
+        <h2>Future goals</h2>
+        <p>
+          Looking for hands-on roles in materials R&amp;D, failure analysis, semiconductor materials, or
+          advanced manufacturing — startups and hardware companies included.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><GrainDivider /></div>
+
+  <section class="wrap">
+    <div class="eyebrow">Timeline</div>
+    <h2>Milestones</h2>
+    <Timeline items={timelineData} />
+  </section>
+</BaseLayout>

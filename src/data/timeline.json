@@ -1,0 +1,44 @@
+[
+  {
+    "year": "[Year]",
+    "title": "Began B.Tech, Metallurgical & Materials Engineering",
+    "description": "Started at Visvesvaraya National Institute of Technology (VNIT), Nagpur.",
+    "category": "Education"
+  },
+  {
+    "year": "[Year]",
+    "title": "Investment Casting with 3D-Printed Wax Patterns",
+    "description": "Explored investment casting using additively manufactured wax patterns as an alternative to traditional pattern-making.",
+    "category": "Project"
+  },
+  {
+    "year": "[Year]",
+    "title": "Aluminium Scrap Recycling Study",
+    "description": "Worked on recovery and characterization of recycled aluminium, connecting scrap quality to processing parameters.",
+    "category": "Project"
+  },
+  {
+    "year": "[Year]",
+    "title": "Mechanical Testing & Fracture Mechanics",
+    "description": "Hands-on mechanical testing and fracture mechanics analysis — the foundation for later failure-analysis-oriented work.",
+    "category": "Research"
+  },
+  {
+    "year": "[Year]",
+    "title": "Graduated — B.Tech, Metallurgical & Materials Engineering, VNIT Nagpur",
+    "description": "Completed the degree with a focus on physical metallurgy and materials characterization.",
+    "category": "Education"
+  },
+  {
+    "year": "Ongoing",
+    "title": "FDM PETG vs. PETG-CF Research Paper",
+    "description": "Full factorial study (2 materials × 3 layer thicknesses × 3 infill densities) on FDM-printed PETG and PETG-CF, tested per ASTM D638 with DIC strain mapping and SEM fractography. Investigating whether carbon-fiber reinforcement changes the deformation and failure mechanism, not just the numbers.",
+    "category": "Research"
+  },
+  {
+    "year": "Next",
+    "title": "Materials R&D / Failure Analysis Role",
+    "description": "Looking for hands-on roles in materials R&D, failure analysis, semiconductor materials, or advanced manufacturing.",
+    "category": "Goal"
+  }
+]

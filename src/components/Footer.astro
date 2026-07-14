@@ -1,0 +1,27 @@
+---
+import site from '../data/site.json';
+import SocialIcons from './SocialIcons.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>
+      <p class="muted" style="margin:0;">
+        © {year} {site.name}. Built with Astro. Materials engineer by training, guitarist by disposition.
+      </p>
+    </div>
+    <SocialIcons size={16} />
+  </div>
+</footer>
+
+<style>
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+</style>

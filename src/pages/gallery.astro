@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import galleryData from '../data/gallery.json';
+
+const base = import.meta.env.BASE_URL;
+const categories = galleryData.map((g) => g.category);
+---
+
+<BaseLayout title="Gallery" description="Photos from projects, research, travel, college, and music.">
+  <section class="wrap">
+    <div class="eyebrow">Gallery</div>
+    <h1>A visual record</h1>
+    <p class="prose">
+      Add real photos at <span class="mono">public/images/gallery/</span> and set the
+      <span class="mono">src</span> field in <span class="mono">src/data/gallery.json</span> — placeholders
+      show automatically until then.
+    </p>
+
+    <div class="filters" role="group" aria-label="Filter gallery by category">
+      <button class="filter-btn active" data-filter="all">All</button>
+      {categories.map((c) => <button class="filter-btn" data-filter={c}>{c}</button>)}
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid">
+      {galleryData.map((group) =>
+        group.items.map((item) => (
+          <button class="gallery-tile reveal" data-category={group.category} data-caption={item.caption}>
+            {item.src ? (
+              <img src={`${base}${item.src}`} alt={item.caption} loading="lazy" />
+            ) : (
+              <span class="placeholder-pattern">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <polygon points="0,0 100,0 100,60 60,100 0,100" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.4" />
+                  <line x1="0" y1="100" x2="100" y2="0" stroke="currentColor" stroke-width="0.4" opacity="0.3" />
+                </svg>
+              </span>
+            )}
+            <span class="tile-caption">{item.caption}</span>
+          </button>
+        ))
+      )}
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+    <div class="lightbox-content">
+      <div class="lightbox-media" id="lightbox-media"></div>
+      <p class="lightbox-caption mono" id="lightbox-caption"></p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: var(--space-3) 0 var(--space-4); }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.4em 0.8em;
+    border-radius: 2px;
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-2);
+  }
+  .gallery-tile {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--line);
+    background: var(--bg-elevated);
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    color: var(--patina);
+  }
+  .gallery-tile img { width: 100%; height: 100%; object-fit: cover; }
+  .placeholder-pattern { position: absolute; inset: 0; display: block; }
+  .placeholder-pattern svg { width: 100%; height: 100%; }
+  .tile-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--ink);
+    background: linear-gradient(to top, color-mix(in srgb, var(--bg) 85%, transparent), transparent);
+    text-align: left;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: color-mix(in srgb, var(--bg) 92%, black 8%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox[hidden] { display: none; }
+  .lightbox-content { max-width: min(90vw, 800px); text-align: center; }
+  .lightbox-media {
+    aspect-ratio: 4/3;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--patina);
+  }
+  .lightbox-media img { width: 100%; height: 100%; object-fit: contain; }
+  .lightbox-caption { margin-top: var(--space-2); color: var(--ink-soft); font-size: 0.85rem; }
+  .lightbox-close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const tiles = document.querySelectorAll<HTMLButtonElement>('.gallery-tile');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxMedia = document.getElementById('lightbox-media');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const closeBtn = document.getElementById('lightbox-close');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      tiles.forEach((tile) => {
+        const show = filter === 'all' || tile.dataset.category === filter;
+        (tile as HTMLElement).style.display = show ? '' : 'none';
+      });
+    });
+  });
+
+  tiles.forEach((tile) => {
+    tile.addEventListener('click', () => {
+      if (!lightbox || !lightboxMedia || !lightboxCaption) return;
+      lightboxMedia.innerHTML = tile.innerHTML.replace(/<span class="tile-caption">.*<\/span>/, '');
+      lightboxCaption.textContent = tile.dataset.caption ?? '';
+      lightbox.hidden = false;
+    });
+  });
+
+  closeBtn?.addEventListener('click', () => { if (lightbox) lightbox.hidden = true; });
+  lightbox?.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.hidden = true; });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox) lightbox.hidden = true; });
+</script>

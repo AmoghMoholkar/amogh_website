@@ -1,0 +1,35 @@
+{
+  "summary": "Metallurgical & Materials Engineering graduate (VNIT Nagpur) with hands-on experience in mechanical testing, SEM-based fractography, digital image correlation, and additive manufacturing. Comfortable moving between the lab bench and a Python analysis pipeline. Looking for roles in materials R&D, failure analysis, semiconductor materials, or advanced manufacturing.",
+  "education": [
+    {
+      "degree": "B.Tech, Metallurgical & Materials Engineering",
+      "institution": "Visvesvaraya National Institute of Technology (VNIT), Nagpur",
+      "years": "[Year] – [Year]",
+      "details": "[Add GPA / relevant coursework / honors here]"
+    }
+  ],
+  "technicalSkillGroups": [
+    {
+      "group": "Materials & Metallurgy",
+      "items": ["Physical metallurgy", "Failure analysis", "Alloy development", "Investment casting", "Additive manufacturing (FDM)"]
+    },
+    {
+      "group": "Characterization & Testing",
+      "items": ["SEM & fractography", "ASTM mechanical testing", "Digital Image Correlation (DIC)", "Fracture mechanics"]
+    },
+    {
+      "group": "Software & Computation",
+      "items": ["Python (scientific computing, curve fitting, statistics)", "ParaView", "CAD", "[Add: Origin / MATLAB / JMatPro / Thermo-Calc, etc.]"]
+    }
+  ],
+  "leadership": [
+    "[Add leadership / team / society roles here]"
+  ],
+  "achievements": [
+    "[Add awards, scholarships, competition results here]"
+  ],
+  "certifications": [
+    "[Add certifications here]"
+  ],
+  "resumePdf": "/resume.pdf"
+}
