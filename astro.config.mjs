@@ -18,7 +18,7 @@ import { defineConfig } from 'astro/config';
 // See README.md → "Deploying to GitHub Pages" for the full walkthrough.
 // ---------------------------------------------------------------------------
 export default defineConfig({
-  site: 'https://your-username.github.io',
-  base: '/your-repo-name',
+site: 'https://amoghmoholkar.github.io',
+base: '/amogh_website',
   trailingSlash: 'always',
 });
