@@ -18,7 +18,6 @@ const research = (await getCollection('research')).sort((a, b) => b.data.date.va
         <h1>{site.fullName}</h1>
         <p class="muted" style="margin:0;">{site.role} · {site.location} · <a href={`mailto:${site.email}`} style="color:var(--patina);">{site.email}</a></p>
       </div>
-      <a class="btn btn-primary" href={`${base}resume.pdf`} download>Download PDF</a>
     </div>
     <p class="prose" style="margin-top:var(--space-3);">{resume.summary}</p>
   </section>
