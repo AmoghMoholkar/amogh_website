@@ -1,39 +1,57 @@
 [
   {
-    "year": "[Year]",
+    "year": "2022",
     "title": "Began B.Tech, Metallurgical & Materials Engineering",
     "description": "Started at Visvesvaraya National Institute of Technology (VNIT), Nagpur.",
     "category": "Education"
   },
   {
-    "year": "[Year]",
-    "title": "Investment Casting with 3D-Printed Wax Patterns",
-    "description": "Explored investment casting using additively manufactured wax patterns as an alternative to traditional pattern-making.",
+    "year": "Sep–Nov 2023",
+    "title": "Bench-Scale Beneficiation of Mn Ore",
+    "description": "Beneficiated manganese ore using hydrocyclone separation, roll crushing, and planetary ball milling to optimize ore quality and yield (under Dr. Ravindra Taiwade, VNIT Nagpur).",
     "category": "Project"
   },
   {
-    "year": "[Year]",
-    "title": "Aluminium Scrap Recycling Study",
-    "description": "Worked on recovery and characterization of recycled aluminium, connecting scrap quality to processing parameters.",
+    "year": "May–Jun 2024",
+    "title": "Research Internship, IIT Roorkee",
+    "description": "Synthesized polyurethane microspheres, integrated them into an epoxy resin matrix, and fabricated syntactic foam.",
+    "category": "Experience"
+  },
+  {
+    "year": "Jul 2024–Apr 2025",
+    "title": "Aluminium Foam Fabrication & Characterization",
+    "description": "Synthesized aluminium foam from recycled cans using eggshell powder as a foaming agent; optimized foaming-agent volume fraction and characterized microstructure via SEM (under Prof. Atul Ballal, VNIT Nagpur).",
     "category": "Project"
   },
   {
-    "year": "[Year]",
-    "title": "Mechanical Testing & Fracture Mechanics",
-    "description": "Hands-on mechanical testing and fracture mechanics analysis — the foundation for later failure-analysis-oriented work.",
+    "year": "May–Jul 2025",
+    "title": "Fracture & Tensile Properties of 3D-Printed PLA",
+    "description": "Studied the effect of layer thickness and infill pattern on the mechanical properties of FDM-printed PLA, using tensile and three-point bend testing, Digital Image Correlation, and SEM fractography (under Dr. S.R. Reddy, VNIT Nagpur).",
     "category": "Research"
   },
   {
-    "year": "[Year]",
-    "title": "Graduated — B.Tech, Metallurgical & Materials Engineering, VNIT Nagpur",
-    "description": "Completed the degree with a focus on physical metallurgy and materials characterization.",
-    "category": "Education"
+    "year": "Jul 2025–May 2026",
+    "title": "Final Year Project: Investment Casting Optimization",
+    "description": "Hybrid investment casting route for art objects combining FDM-based patterning, LSR mold replication, and wax casting, using flux-treated recycled aluminium with vacuum-assisted pouring (under Dr. S.R. Reddy, VNIT Nagpur).",
+    "category": "Project"
+  },
+  {
+    "year": "2026",
+    "title": "GATE 2026 — All India Rank 281 (Metallurgical Engineering)",
+    "description": "Also recognized as Class Topper in Process Optimization and Failure Analysis.",
+    "category": "Achievement"
   },
   {
     "year": "Ongoing",
     "title": "FDM PETG vs. PETG-CF Research Paper",
     "description": "Full factorial study (2 materials × 3 layer thicknesses × 3 infill densities) on FDM-printed PETG and PETG-CF, tested per ASTM D638 with DIC strain mapping and SEM fractography. Investigating whether carbon-fiber reinforcement changes the deformation and failure mechanism, not just the numbers.",
     "category": "Research"
+  },
+  {
+    "year": "2026",
+    "title": "Graduating — B.Tech, Metallurgical & Materials Engineering, VNIT Nagpur",
+    "description": "Completing the degree with a focus on physical metallurgy and materials characterization.",
+    "category": "Education"
   },
   {
     "year": "Next",

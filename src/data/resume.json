@@ -1,35 +1,65 @@
 {
-  "summary": "Metallurgical & Materials Engineering graduate (VNIT Nagpur) with hands-on experience in mechanical testing, SEM-based fractography, digital image correlation, and additive manufacturing. Comfortable moving between the lab bench and a Python analysis pipeline. Looking for roles in materials R&D, failure analysis, semiconductor materials, or advanced manufacturing.",
+  "summary": "Metallurgical & Materials Engineering student (VNIT Nagpur, graduating 2026) with hands-on experience across investment casting, additive manufacturing, mechanical testing, SEM-based fractography, and digital image correlation. GATE 2026 AIR 281 (Metallurgical Engineering). Looking for roles in materials R&D, failure analysis, semiconductor materials, or advanced manufacturing.",
   "education": [
     {
       "degree": "B.Tech, Metallurgical & Materials Engineering",
       "institution": "Visvesvaraya National Institute of Technology (VNIT), Nagpur",
-      "years": "[Year] – [Year]",
-      "details": "[Add GPA / relevant coursework / honors here]"
+      "years": "2022 – 2026",
+      "details": "CGPA: 7.22. Key courses: Mechanical Behaviour of Materials, Physical Metallurgy, Materials Characterization, Semiconductors, Failure Analysis, Process Optimization."
+    },
+    {
+      "degree": "Junior College (12th Boards)",
+      "institution": "Major Hemant Jakate Vidyaniketan, Nagpur",
+      "years": "2019 – 2021",
+      "details": "98.17%."
+    },
+    {
+      "degree": "Primary, Middle & High School (10th Boards)",
+      "institution": "Somalwar High School and Junior College, Nikalas Branch, Nagpur",
+      "years": "2009 – 2019",
+      "details": "95.4%. Recognized as \"Star of Nikalas\" on passing out."
+    }
+  ],
+  "experience": [
+    {
+      "role": "Research Intern (Full-time)",
+      "organization": "Indian Institute of Technology (IIT), Roorkee",
+      "years": "May 2024 – June 2024",
+      "bullets": [
+        "Developed a controlled process for synthesizing uniform polyurethane microspheres through polymerization techniques.",
+        "Integrated synthesized polyurethane microspheres into an epoxy resin matrix to enhance its mechanical properties.",
+        "Fabricated syntactic foam by optimizing microsphere concentration and evaluating structural performance."
+      ]
     }
   ],
   "technicalSkillGroups": [
     {
-      "group": "Materials & Metallurgy",
-      "items": ["Physical metallurgy", "Failure analysis", "Alloy development", "Investment casting", "Additive manufacturing (FDM)"]
+      "group": "Materials Processing",
+      "items": ["Investment casting", "Additive manufacturing (FDM)", "Polymer / ceramic / composite processing", "Powder metallurgy", "Hydrocyclone beneficiation"]
     },
     {
       "group": "Characterization & Testing",
-      "items": ["SEM & fractography", "ASTM mechanical testing", "Digital Image Correlation (DIC)", "Fracture mechanics"]
+      "items": ["SEM", "Optical microscopy", "Hardness testing", "Tensile testing", "Fatigue, impact & creep testing", "Digital Image Correlation (DIC)", "Non-contact strain measurement"]
     },
     {
-      "group": "Software & Computation",
-      "items": ["Python (scientific computing, curve fitting, statistics)", "ParaView", "CAD", "[Add: Origin / MATLAB / JMatPro / Thermo-Calc, etc.]"]
+      "group": "Tools & Software",
+      "items": ["Python", "MATLAB (basic data analysis)", "CAD/CAM", "ParaView", "ImageJ", "MS Excel"]
     }
   ],
   "leadership": [
-    "[Add leadership / team / society roles here]"
+    "Content Writer, Department Newsletter \"Vaarta\" (Sept 2023 – May 2026) — distilled current research papers, patents, and department highlights into engaging content.",
+    "Head of Events, Octaves Music Club (May 2024 – May 2025) — organized musical events bridging academics and musical activity across the institute.",
+    "2nd Year Representative, Octaves Music Club (May 2023 – May 2024) — coordinated student involvement in music activities alongside academics.",
+    "Cultural Secretary, Department 2nd Year Council (Aug 2023 – May 2024) — organized department gathering \"AAVEG 2023\"; coordinated cultural competitions at \"ADVAITAM 2024\"."
   ],
   "achievements": [
-    "[Add awards, scholarships, competition results here]"
+    "GATE 2026 — All India Rank (AIR) 281, Metallurgical Engineering.",
+    "Class Topper — Process Optimization; Failure Analysis, VNIT Nagpur.",
+    "Runner-Up, Big Fight Debate Competition, Aarohi Cultural Fest, VNIT (November 2024).",
+    "3rd Prize, Street Play Competition, Institute Gathering (March 2024).",
+    "Special Mention, E-Cell VNIT's BIZMUN — Business MUN (February 2024).",
+    "JLPT (Japanese Language Proficiency Test) — Cleared N5, N4, and N3, each in first attempt."
   ],
-  "certifications": [
-    "[Add certifications here]"
-  ],
+  "certifications": [],
   "resumePdf": "/resume.pdf"
 }
