@@ -108,12 +108,9 @@ const recentTimeline = timelineData.slice(-4).reverse();
         </div>
       )}
       <div class="reveal">
-        <div class="eyebrow">Recent achievement</div>
+    <div class="eyebrow">Recent achievement</div>
         <div class="card">
-          <p class="muted" style="margin:0;">
-            [Add your most recent award, publication milestone, or competition result here — edit
-            <span class="mono">src/data/resume.json</span> → <span class="mono">achievements</span>.]
-          </p>
+          <p style="margin:0;">{resume.achievements[0]}</p>
         </div>
       </div>
     </div>
