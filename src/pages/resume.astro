@@ -37,6 +37,22 @@ const research = (await getCollection('research')).sort((a, b) => b.data.date.va
     ))}
   </section>
 
+  {resume.experience.length > 0 && (
+    <section class="wrap">
+      <h2>Experience</h2>
+      {resume.experience.map((exp) => (
+        <div class="card" style="margin-bottom:var(--space-2);">
+          <h3 style="margin-bottom:0.2rem;">{exp.role}</h3>
+          <p style="margin:0;">{exp.organization}</p>
+          <p class="mono muted" style="margin:0.3rem 0 0;">{exp.years}</p>
+          <ul style="margin:var(--space-2) 0 0; padding-left:1.1rem; color:var(--ink-soft);">
+            {exp.bullets.map((b) => <li>{b}</li>)}
+          </ul>
+        </div>
+      ))}
+    </section>
+  )}
+
   <section class="wrap">
     <h2>Selected projects</h2>
     <div class="stack">
@@ -82,7 +98,7 @@ const research = (await getCollection('research')).sort((a, b) => b.data.date.va
   </section>
 
   <section class="wrap">
-    <div class="grid grid-3">
+    <div class:list={['grid', resume.certifications.length > 0 ? 'grid-3' : 'grid-2']}>
       <div>
         <h2>Leadership</h2>
         <ul style="padding-left:1.1rem; color:var(--ink-soft);">
@@ -95,12 +111,14 @@ const research = (await getCollection('research')).sort((a, b) => b.data.date.va
           {resume.achievements.map((i) => <li>{i}</li>)}
         </ul>
       </div>
-      <div>
-        <h2>Certifications</h2>
-        <ul style="padding-left:1.1rem; color:var(--ink-soft);">
-          {resume.certifications.map((i) => <li>{i}</li>)}
-        </ul>
-      </div>
+      {resume.certifications.length > 0 && (
+        <div>
+          <h2>Certifications</h2>
+          <ul style="padding-left:1.1rem; color:var(--ink-soft);">
+            {resume.certifications.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+      )}
     </div>
   </section>
 </BaseLayout>
